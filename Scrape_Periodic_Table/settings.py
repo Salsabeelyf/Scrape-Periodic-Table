@@ -69,7 +69,7 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    "Scrape_Periodic_Table.pipelines.ScrapePeriodicTablePipeline": 100,
-#    "Scrape_Periodic_Table.pipelines.SaveToDatabasePipeline": 300
+   "Scrape_Periodic_Table.pipelines.SaveToDatabasePipeline": 300
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
