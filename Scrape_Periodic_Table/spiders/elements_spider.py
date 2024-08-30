@@ -7,7 +7,7 @@ class ElementsSpiderSpider(scrapy.Spider):
     name = "elements_spider"
     allowed_domains = ["nih.gov"]
     start_urls = ["https://pubchem.ncbi.nlm.nih.gov/ptable/"]
-    # elements = {}
+    elements = []
 
     def start_requests(self):
         yield Request(self.start_urls[0],
@@ -15,7 +15,7 @@ class ElementsSpiderSpider(scrapy.Spider):
                             playwright= True,
                             playwright_page_methods=[
                                 PageMethod('wait_for_load_state',"domcontentloaded"),
-                                PageMethod('wait_for_function', "document.querySelector('div.element') !== null")
+                                PageMethod('wait_for_function', "document.querySelector('div.element div[data-tooltip=\"Symbol\"]') !== null")
                                 ]
                         ))
 
@@ -28,6 +28,7 @@ class ElementsSpiderSpider(scrapy.Spider):
                 'atomic_number': int(e.css('div[data-tooltip="Atomic Number"]::text').get()),
                 'chemical_group': e.css('div[data-tooltip="Chemical Group Block"] span::text').get()
             }
+
         # for e in response.css('div.element'):
         #     chemical_group = e.css('div[data-tooltip="Chemical Group Block"] span::text').get()
         #     if chemical_group not in self.elements.keys():

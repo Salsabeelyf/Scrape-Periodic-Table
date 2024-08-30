@@ -5,7 +5,9 @@
 
 
 # useful for handling different item types with a single interface
+import json
 import sqlite3
+from itemadapter import ItemAdapter
 
 
 class ScrapePeriodicTablePipeline:
@@ -33,6 +35,22 @@ class SaveToDatabasePipeline:
                              INSERT INTO periodic_table (element_symbol, element_name, atomic_number, atomic_mass, chemical_group) VALUES (?,?,?,?,?)""",
                              (item['symbol'], item['name'], item['atomic_number'], item['atomic_mass'], item['chemical_group']))
         self.con.commit()
+        return item
 
     def close_spider(self, spider):
         self.con.close()
+
+
+class SaveToJsonPipeline:
+    def process_item(self, item: dict, spider):  # default method
+        # calling dumps to create json data.
+        line = json.dumps(dict(item)) + "\n"
+        # converting item to dict above, since dumps only intakes dict.
+        self.file.write(line)                    # writing content in output file.
+        return item
+ 
+    def open_spider(self, spider):
+        self.file = open('result.json', 'w')
+ 
+    def close_spider(self, spider):
+        self.file.close()
