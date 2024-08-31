@@ -42,15 +42,23 @@ class SaveToDatabasePipeline:
 
 
 class SaveToJsonPipeline:
-    def process_item(self, item: dict, spider):  # default method
-        # calling dumps to create json data.
-        line = json.dumps(dict(item)) + "\n"
-        # converting item to dict above, since dumps only intakes dict.
-        self.file.write(line)                    # writing content in output file.
+    elements = {}
+    keys_to_extract = ["symbol", "name", "atomic_mass", "atomic_number"]
+
+    def process_item(self, item, spider):  # default method
+        chemical_group = item["chemical_group"]
+        if chemical_group not in self.elements.keys():
+            self.elements[chemical_group] = {
+                "element_count": 0,
+                "elements": []
+            }
+        self.elements[chemical_group]["element_count"] += 1
+        self.elements[chemical_group]["elements"].append({key: item[key] for key in self.keys_to_extract})
         return item
  
     def open_spider(self, spider):
-        self.file = open('result.json', 'w')
+        self.file = open("result.json", "w")
  
     def close_spider(self, spider):
+        self.file.write(json.dumps(dict(self.elements)))
         self.file.close()

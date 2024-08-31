@@ -22,29 +22,12 @@ class ElementsSpiderSpider(scrapy.Spider):
     def parse(self, response):
         for e in response.css('div.element'):
             yield{
-                'symbol': e.css('div[data-tooltip="Symbol"]::text').get(),
-                'name': e.css('div[data-tooltip="Name"]::text').get(),
-                'atomic_mass': float(e.css('div[data-tooltip="Atomic Mass, u"]::text').get()),
-                'atomic_number': int(e.css('div[data-tooltip="Atomic Number"]::text').get()),
-                'chemical_group': e.css('div[data-tooltip="Chemical Group Block"] span::text').get()
+                "symbol": e.css('div[data-tooltip="Symbol"]::text').get(),
+                "name": e.css('div[data-tooltip="Name"]::text').get(),
+                "atomic_mass": float(e.css('div[data-tooltip="Atomic Mass, u"]::text').get()),
+                "atomic_number": int(e.css('div[data-tooltip="Atomic Number"]::text').get()),
+                "chemical_group": e.css('div[data-tooltip="Chemical Group Block"] span::text').get()
             }
-
-        # for e in response.css('div.element'):
-        #     chemical_group = e.css('div[data-tooltip="Chemical Group Block"] span::text').get()
-        #     if chemical_group not in self.elements.keys():
-        #         self.elements[chemical_group] = {
-        #             'element_count': 0,
-        #             'elements': []
-        #         }
-        #     self.elements[chemical_group]['element_count'] += 1
-        #     self.elements[chemical_group]['elements'].append({
-        #         'symbol': e.css('div[data-tooltip="Symbol"]::text').get(),
-        #         'name': e.css('div[data-tooltip="Name"]::text').get(),
-        #         'atomic_mass': float(e.css('div[data-tooltip="Atomic Mass, u"]::text').get()),
-        #         'atomic_number': int(e.css('div[data-tooltip="Atomic Number"]::text').get())
-        #     })
-
-        # yield self.elements
 
 
 
