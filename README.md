@@ -17,7 +17,7 @@
 ![periodic_table.db](<screenshots/Screenshot from 2024-08-31 11-48-50.png>)
 
 * Output the info to a json file organized by chemical group as follows:
-![result.json](<screenshots/Screenshot from 2024-08-31 11-55-14.png>)
+![result.json](<screenshots/Screenshot from 2024-09-01 09-07-20.png>)
       
 ## Libraries Used
 * Scrapy
