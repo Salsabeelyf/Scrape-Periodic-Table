@@ -28,36 +28,4 @@ class ElementsSpiderSpider(scrapy.Spider):
                 "atomic_number": int(e.css('div[data-tooltip="Atomic Number"]::text').get()),
                 "chemical_group": e.css('div[data-tooltip="Chemical Group Block"] span::text').get()
             }
-
-
-
-# Exctract:
-# symbol div[data-tooltip="Symbol"]::text
-# name div[data-tooltip="Name"]::text
-# atomic mass (float) div[data-tooltip="Atomic Mass, u"]::text
-# atomic number (int)  div[data-tooltip="Atomic Number"]::text
-# chemical group div[data-tooltip="Chemical Group Block"] span::text
-
-
-# Save data into database
-
-# output data as a nested dictionary grouped by chemical group
-# {
-#     "nonmetal": {
-#         "element_count": 7,
-#         "elements": [
-#             {
-#                 "symbol": "H",
-#                 "name": "Hydrogen",
-#                 "atomic_number": 1,
-#                 "atomic_mass": 1.008
-#             },
-#             {
-#                 "symbol": "H",
-#                 "name": "Hydrogen",
-#                 "atomic_number": 1,
-#                 "atomic_mass": 1.008
-#             }
-#         ]
-#     }
-# }
+            
