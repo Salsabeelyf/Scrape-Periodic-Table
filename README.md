@@ -1,6 +1,6 @@
 # Scrape Periodic table elements
 
-![Periodic table website](<Screenshot from 2024-08-31 11-43-19.png>)
+![Periodic table website](<screenshots/Screenshot from 2024-08-31 11-43-19.png>)
 
 ## About 
 
@@ -14,10 +14,10 @@
     * chemical group
 
 * Store the info in a table in a Sqlite database as follows:
-![periodic_table.db](<Screenshot from 2024-08-31 11-48-50.png>)
+![periodic_table.db](<screenshots/Screenshot from 2024-08-31 11-48-50.png>)
 
 * Output the info to a json file organized by chemical group as follows:
-![result.json](<Screenshot from 2024-08-31 11-55-14.png>)
+![result.json](<screenshots/Screenshot from 2024-08-31 11-55-14.png>)
       
 ## Libraries Used
 * Scrapy
