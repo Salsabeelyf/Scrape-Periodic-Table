@@ -1,6 +1,8 @@
 import scrapy
 from scrapy import Request
 from scrapy_playwright.page import PageMethod
+from Scrape_Periodic_Table.items import PeriodicTableItem
+from itemloaders import ItemLoader
 
 
 class ElementsSpiderSpider(scrapy.Spider):
@@ -20,12 +22,13 @@ class ElementsSpiderSpider(scrapy.Spider):
                         ))
 
     def parse(self, response):
-        for e in response.css('div.element'):
-            yield{
-                "symbol": e.css('div[data-tooltip="Symbol"]::text').get(),
-                "name": e.css('div[data-tooltip="Name"]::text').get(),
-                "atomic_mass": float(e.css('div[data-tooltip="Atomic Mass, u"]::text').get()),
-                "atomic_number": int(e.css('div[data-tooltip="Atomic Number"]::text').get()),
-                "chemical_group": e.css('div[data-tooltip="Chemical Group Block"] span::text').get()
-            }
+        for element in response.css('div.element'):
+            item_loader = ItemLoader(item=PeriodicTableItem(), selector=element)
             
+            item_loader.add_css('symbol', 'div[data-tooltip="Symbol"]')
+            item_loader.add_css('name', 'div[data-tooltip="Name"]')
+            item_loader.add_css('atomic_mass', 'div[data-tooltip*="Atomic Mass"]')
+            item_loader.add_css('atomic_number', 'div[data-tooltip="Atomic Number"]')
+            item_loader.add_css('chemical_group', 'div[data-tooltip="Chemical Group Block"] span')
+
+            yield item_loader.load_item()
